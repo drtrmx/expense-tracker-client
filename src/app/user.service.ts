@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { httpOptions } from "./authenticate.service";
+import { httpOptions } from './authenticate.service';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private userUrl = 'http://localhost:8080/users';
+  private userUrl = environment.baseUrl + 'users';
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {
+    const token = window.localStorage.getItem('token');
+    httpOptions.headers = httpOptions.headers.set('Authorization', 'Basic ' + token);
+  }
 
   getUsers(): Promise<User[]> {
     return this.http.get<User[]>(
