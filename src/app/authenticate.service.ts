@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 export const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': '',
+    Authorization: '',
   })
 };
 
@@ -18,40 +19,33 @@ export class AuthenticateService {
   user: User;
   redirectUrl: string;
 
-  private usersUrl = 'http://localhost:8080';
+  private usersUrl = environment.baseUrl + 'users';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  async login(username: string, password: string): Promise<boolean> {
-    const token = btoa(`${username}:${password}`);
-    httpOptions.headers =
-      httpOptions.headers.set(
-        'Authorization',
-        `Basic ${token}`
-      );
+  async login(username: string, password: string): Promise<User> {
     try {
-      const user = await this.http.post<User>(
-        `${this.usersUrl}/login`,
-        {username},
-        httpOptions
-      ).toPromise();
-
+      const token = btoa(`${username}:${password}`);
+      httpOptions.headers = httpOptions.headers.set('Authorization', 'Basic ' + token);
+      const user = await this.http.post<User>(`${this.usersUrl}/login`, username, httpOptions).toPromise();
       this.isLoggedIn = true;
-      this.user = user;
-
-      return Promise.resolve(true);
+      window.localStorage.setItem('token', token);
+      window.localStorage.setItem('role', user.role);
+      return Promise.resolve(this.user);
     } catch (e) {
-      console.log('hiba', e);
-      return Promise.resolve(false);
+      console.log(e);
+      return Promise.reject();
     }
   }
 
   logout() {
+    httpOptions.headers = httpOptions.headers.set('Authorization', ``);
     this.isLoggedIn = false;
     this.user = null;
-    this.redirectUrl = null;
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('role');
   }
 
 }
