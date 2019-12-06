@@ -1,0 +1,22 @@
+<h2>Expense list</h2>
+
+<value-filter [value]="selectedExpense"
+  (change)="onFilterChange($event)"
+></value-filter>
+
+<mat-nav-list>
+  <a *ngFor="let expense of filteredExpenses" mat-list-item
+    (click)="selectedExpense = expense"
+    [class.selected]="expense === selectedExpense"
+    [routerLink]="['/expenses', expense.id]"
+  >
+    <mat-icon *ngIf="expense.value > 1000"   matListIcon style="color: red">{{expense.value}}</mat-icon>
+    <mat-icon *ngIf="expense.value >= 500 && 1000 > expense.value" matListIcon style="color: orange">{{expense.value}}</mat-icon>
+    <mat-icon *ngIf="500 > expense.value"  matListIcon style="color: green">{{expense.value}}</mat-icon>
+    <h3 matLine>{{ expense.title }}</h3>
+    <small matLine>
+      <mat-icon>access_time</mat-icon> {{ expense.date }}
+    </small>
+    <p matLine>{{ expense.description }}</p>
+  </a>
+</mat-nav-list>

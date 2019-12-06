@@ -1,0 +1,18 @@
+<h1>Details</h1>
+
+<dl *ngIf="expense">
+  <dt>Title</dt>
+  <dd>{{expense.title}}</dd>
+  <dt>Description</dt>
+  <dd>{{expense.description}}</dd>
+  <dt>Value</dt>
+  <dd>{{expense.value}}</dd>
+  <dt>Created date</dt>
+  <dd>{{expense.date}}</dd>
+  <dt>contributor</dt>
+  <dd>{{expense.contributorId}}</dd>
+</dl>
+
+<p>
+<a mat-flat-button color="primary" [routerLink]="['/expenses', expense.id, 'edit']">Edit</a>
+</p>

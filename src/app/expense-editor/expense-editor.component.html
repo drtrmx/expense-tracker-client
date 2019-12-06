@@ -1,0 +1,9 @@
+<div style="padding-left: 4em;">
+    <h1>Edit expense</h1>
+    <expense-editor
+        *ngIf="expense"
+        [expense]="expense"
+        [mode]="'edit'"
+        (expenseSubmit)="submitExpense($event)"
+    ></expense-editor>
+</div>
