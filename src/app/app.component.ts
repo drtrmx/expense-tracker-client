@@ -1,4 +1,3 @@
- 
 import { Component } from '@angular/core';
 import { AuthenticateService } from './authenticate.service';
 import { Router } from '@angular/router';
@@ -11,11 +10,11 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'expense-tracker-client';
 
-  constructor (
+  constructor(
     private authService: AuthenticateService,
     private router: Router
   ) {
-    console.log(authService.user)
+    console.log(authService.user);
   }
 
   logout() {

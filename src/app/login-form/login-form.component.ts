@@ -19,7 +19,6 @@ export class LoginFormComponent implements OnInit {
 
   get username() { return this.form.get('username'); }
   get password() { return this.form.get('password'); }
-  
 
   constructor(
     private fb: FormBuilder,
@@ -32,16 +31,16 @@ export class LoginFormComponent implements OnInit {
 
   async onSubmit() {
     const success = await this.authService.login(
-      this.username.value, 
+      this.username.value,
       this.password.value
-    )
+    );
     if (success) {
       const url = this.authService.redirectUrl
         ? this.authService.redirectUrl
         : '/expenses';
-      this.router.navigate([url])
+      this.router.navigate([url]);
     } else {
-      this.message = 'Login failed!'
+      this.message = 'Login failed!';
     }
   }
 

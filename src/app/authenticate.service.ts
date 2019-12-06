@@ -25,7 +25,7 @@ export class AuthenticateService {
     private http: HttpClient
   ) { }
 
-  async login(username: string, password: string): Promise<User> {
+  async login(username: string, password: string): Promise<boolean> {
     try {
       const token = btoa(`${username}:${password}`);
       httpOptions.headers = httpOptions.headers.set('Authorization', 'Basic ' + token);
@@ -33,10 +33,11 @@ export class AuthenticateService {
       this.isLoggedIn = true;
       window.localStorage.setItem('token', token);
       window.localStorage.setItem('role', user.role);
-      return Promise.resolve(this.user);
+      this.user = user;
+      return Promise.resolve(true);
     } catch (e) {
       console.log(e);
-      return Promise.reject();
+      return Promise.resolve(false);
     }
   }
 
