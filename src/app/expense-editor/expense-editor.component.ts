@@ -47,6 +47,7 @@ export class ExpenseEditorComponent implements OnInit {
       this.title = 'Edit expense';
       this.categories = await this.categoryService.getCategories();
       this.places = await this.placeService.getPlaces();
+      console.log(this.categories);
     }
     
 
