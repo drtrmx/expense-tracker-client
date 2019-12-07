@@ -26,6 +26,7 @@ import { IndexPageComponent } from './index-page/index-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValueFilterComponent } from './value-filter/value-filter.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -57,6 +58,7 @@ import { ValueFilterComponent } from './value-filter/value-filter.component';
     RoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

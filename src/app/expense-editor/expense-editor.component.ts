@@ -15,12 +15,15 @@ import { AuthenticateService } from '../authenticate.service';
   templateUrl: './expense-editor.component.html',
   styleUrls: ['./expense-editor.component.css']
 })
+
+
 export class ExpenseEditorComponent implements OnInit {
 
   expense: Expense = new Expense();
   id: number = null;
   title = 'New expense';
   categories: Category[];
+  places: Place[];
 
   //@Input() expense: Expense;
   @Input() mode: 'edit';
@@ -42,8 +45,10 @@ export class ExpenseEditorComponent implements OnInit {
       this.id = +id;
       this.expense = await this.expenseService.getExpense(this.id);
       this.title = 'Edit expense';
+      this.categories = await this.categoryService.getCategories();
+      this.places = await this.placeService.getPlaces();
     }
-    this.categories = this.categoryService.getCategories();
+    
 
   }
 

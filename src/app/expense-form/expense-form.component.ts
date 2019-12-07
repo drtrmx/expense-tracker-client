@@ -24,6 +24,8 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     user: ['', [Validators.required]],
     date: new Date().toLocaleString()
   });
+
+  
   @Input() expense: Expense;
   @Input() showUser = false;
   @Output() save = new EventEmitter<Expense>();

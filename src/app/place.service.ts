@@ -16,7 +16,7 @@ export class PlaceService {
     httpOptions.headers = httpOptions.headers.set('Authorization', 'Basic ' + token);
   }
 
-  getCategories(): Promise<Place[]> {
+  getPlaces(): Promise<Place[]> {
     return this.http.get<Place[]>(
       this.placeUrl,
       httpOptions
