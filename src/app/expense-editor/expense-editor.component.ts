@@ -43,7 +43,7 @@ export class ExpenseEditorComponent implements OnInit {
       this.expense = await this.expenseService.getExpense(this.id);
       this.title = 'Edit expense';
     }
-    this.categories = this.categoryService.getCategories()
+    this.categories = this.categoryService.getCategories();
 
   }
 
