@@ -36,7 +36,7 @@ export class ExpenseEditorComponent implements OnInit {
     private location: Location,
     private router: Router,
     private authService: AuthenticateService
-    
+
   ) { }
 
   async ngOnInit() {
@@ -49,7 +49,7 @@ export class ExpenseEditorComponent implements OnInit {
       this.places = await this.placeService.getPlaces();
       console.log(this.categories);
     }
-    
+
 
   }
 

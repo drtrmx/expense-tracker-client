@@ -1,67 +1,88 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import { Expense } from '../expense';
-import { User } from '../user';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { ExpenseService } from '../expense.service';
+import {Category} from '../category';
+import {Place} from '../place';
+import {CategoryService} from '../category.service';
+import {PlaceService} from '../place.service';
+import {AuthenticateService} from '../authenticate.service';
 
 
 @Component({
-  selector: 'expense-form',
+  selector: 'app-expense-form',
   templateUrl: './expense-form.component.html',
   styleUrls: ['./expense-form.component.css']
 })
 
 export class ExpenseFormComponent implements OnInit, OnChanges {
 
-  expenseForm = this.fb.group({
-    title: ['', [Validators.required]],
-    value: ['', [Validators.required]],
-    category: ['', [Validators.required]],
-    place: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    user: ['', [Validators.required]],
-    date: new Date().toLocaleString()
-  });
-  
   @Input() expense: Expense;
   @Input() showUser = false;
   @Output() save = new EventEmitter<Expense>();
 
-  get title() { return this.expenseForm.get('title'); }
-  get value() { return this.expenseForm.get('value'); }
-  get category() { return this.expenseForm.get('category'); }
-  get place() { return this.expenseForm.get('place'); }
-  get description() { return this.expenseForm.get('description'); }
-  get user() { return this.expenseForm.get('user'); }
+  id?: number;
+
+  title = new FormControl('', Validators.required);
+  value = new FormControl('', Validators.required);
+  category = new FormControl('', Validators.required);
+  place = new FormControl('', Validators.required);
+  description = new FormControl('');
+  date = new FormControl('', Validators.required);
+
+  categories: Category[];
+  places: Place[];
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private expenseService: ExpenseService,
     private userService: UserService,
-  ) { }
+    private categoryService: CategoryService,
+    private placeService: PlaceService,
+    private authService: AuthenticateService,
+  ) {
+    this.id = +this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
-    this.getUserList();
+    this.loadCategories();
+    this.loadPlaces();
   }
 
-  getUserList() {
-    this.userService.getUsers();
+  private async loadCategories() {
+    this.categories = await this.categoryService.getCategories();
   }
+
+  private async loadPlaces() {
+    this.places = await this.placeService.getPlaces();
+  }
+
   ngOnChanges() {
-    this.expenseForm.patchValue(this.expense);
+    this.title.setValue(this.expense.title);
+    this.value.setValue(this.expense.value);
+    this.category.setValue(this.expense.category);
+    this.place.setValue(this.expense.place);
+    this.description.setValue(this.expense.description);
+    this.date.setValue(this.expense.date);
   }
 
   async onSubmit() {
-
-    const routeId = this.route.snapshot.paramMap.get('id');
-    this.expenseForm.value.id = routeId;
-    this.expenseForm.value.date = new Date();
-    const expObj = Object.assign(new Expense(), this.expenseForm.value);
-    if (!routeId) await this.expenseService.addExpense(expObj);
-    this.save.emit(expObj);
+    const result = new Expense();
+    result.id = this.id;
+    result.title = this.title.value;
+    result.value = this.value.value;
+    result.category = this.category.value;
+    result.place = this.place.value;
+    result.description = this.description.value;
+    result.date = new Date();
+    result.owner = this.authService.user;
+    if (!this.id) {
+      await this.expenseService.addExpense(result);
+    }
+    this.save.emit(result);
   }
 
 }

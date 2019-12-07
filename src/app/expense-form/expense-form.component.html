@@ -1,42 +1,43 @@
-<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-        <input matInput placeholder="Title" formControlName="title" required>
-        <mat-error *ngIf="title?.invalid && (title?.dirty || title?.touched) && title?.errors.required">
-            Title is required!
-        </mat-error>
-    </mat-form-field>
+<form (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Title" [formControl]="title" required>
+    <mat-error *ngIf="title?.invalid && (title?.dirty || title?.touched) && title?.errors.required">
+      Title is required!
+    </mat-error>
+  </mat-form-field>
 
-    <mat-select [(ngModel)]="categories" formControlName="category" required>
-        <mat-option *ngFor="let cat of categories" [value]="cat.id">
-            {{ cat.name }}
-        </mat-option>
-    </mat-select>
+  <mat-select [formControl]="category" required>
+    <mat-option>--</mat-option>
+    <mat-option *ngFor="let cat of categories" [value]="cat">
+      {{cat.name}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="category?.invalid && (category?.dirty || category?.touched) && category?.errors.required">
+    Category is required!
+  </mat-error>
+
+  <mat-select [formControl]="place" required>
+    <mat-option>--</mat-option>
+    <mat-option *ngFor="let place of places" [value]="place">
+      {{place.name}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="place?.invalid && (place?.dirty || place?.touched) && place?.errors.required">
+    Place is required!
+  </mat-error>
+
+  <mat-form-field>
+    <input matInput placeholder="Value" [formControl]="value" required>
+    <mat-error *ngIf="value?.invalid && (value?.dirty || value?.touched) && value?.errors.required">
+      Value is required!
+    </mat-error>
+  </mat-form-field>
 
 
-    <!--<mat-form-field>
-        <input matInput placeholder="Category" formControlName="category" required>
-        <mat-error *ngIf="category?.invalid && (category?.dirty || category?.touched) && category?.errors.required">
-            Category is required!
-        </mat-error>
-    </mat-form-field>-->
-    <mat-form-field>
-        <input matInput placeholder="Value" formControlName="value" required>
-        <mat-error *ngIf="value?.invalid && (value?.dirty || value?.touched) && value?.errors.required">
-            Value is required!
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <textarea matInput placeholder="Description" formControlName="description"></textarea>
-    </mat-form-field>
-    <mat-form-field *ngIf="showUser">
-        <mat-select *ngFor="let user of users" placeholder="User" formControlName="user" required>
-            <mat-option value="{{user.id}}">{{user.username}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="user?.invalid && (user?.dirty || user?.touched) && user?.errors.required">
-            User is required!
-        </mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Description" [formControl]="description"></textarea>
+  </mat-form-field>
 
-    <button mat-flat-button color="primary" type="submit" [disabled]="expenseForm?.valid">Save</button>
+  <button mat-flat-button color="primary" type="submit">Save</button>
 
 </form>
