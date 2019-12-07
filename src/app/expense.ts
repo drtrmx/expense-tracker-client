@@ -2,9 +2,9 @@ export class Expense {
     id = null
     title = ''
     value = 0
-    place =''
+    place = ''
     description = ''
     category = ''
     date = ''
-    contributorId = null
+    owner = null
 }

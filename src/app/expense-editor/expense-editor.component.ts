@@ -13,11 +13,11 @@ import { AuthenticateService } from '../authenticate.service';
 })
 export class ExpenseEditorComponent implements OnInit {
 
+  expense: Expense = new Expense();
   id: number = null;
-  //expense: Expense = new Expense();
   title = 'New expense';
 
-  @Input() expense: Expense;
+  //@Input() expense: Expense;
   @Input() mode: 'edit';
 
   constructor(
@@ -38,13 +38,13 @@ export class ExpenseEditorComponent implements OnInit {
     }
   }
 
-  async onFormSave(expense: Expense) {
+  async onFormSubmit(expense: Expense) {
     if (this.id) {
       await this.expenseService.modifyExpense(this.id, expense)
       this.location.back();
     } else {
       await this.expenseService.addExpense(expense);
-      this.router.navigate(['/transacions']);
+      this.router.navigate(['/expenses']);
     }
   }
 

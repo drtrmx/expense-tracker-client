@@ -17,7 +17,7 @@ import {
 } from '@angular/material';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
-import { ExpenseDetailComponent } from "./expense-detail/expense-detail.component";
+import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
 import { RoutingModule } from './routing/routing.module';
 import { ExpenseEditorComponent } from './expense-editor/expense-editor.component';
 import { LoginFormComponent } from './login-form/login-form.component';

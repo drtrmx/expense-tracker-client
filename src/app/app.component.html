@@ -7,7 +7,6 @@
     <button mat-button routerLink="/expenses">My expenses</button>
     <button mat-button routerLink="/expenses/add">New expenses</button>
     <span>Hello, {{ authService.user.username }}!</span>
-    <span>Hello, {{ authService }}!</span>
     <button mat-button (click)="logout()">Logout</button>
   </div>
   <div *ngIf="!authService.isLoggedIn">

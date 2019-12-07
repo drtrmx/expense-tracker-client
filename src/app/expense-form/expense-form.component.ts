@@ -20,7 +20,7 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     value: ['', [Validators.required]],
     category: ['', [Validators.required]],
     place: ['', [Validators.required]],
-    description: [''],
+    description: ['', [Validators.required]],
     user: ['', [Validators.required]],
     date: new Date().toLocaleString()
   });
@@ -42,24 +42,24 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     private userService: UserService,
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getUserList();
   }
 
-  getUserList(){
+  getUserList() {
     this.userService.getUsers();
   }
   ngOnChanges() {
     this.expenseForm.patchValue(this.expense);
   }
 
- async onSubmit() {
+  async onSubmit() {
 
     const routeId = this.route.snapshot.paramMap.get('id');
     this.expenseForm.value.id = routeId;
     this.expenseForm.value.date = new Date();
     const expObj = Object.assign(new Expense(), this.expenseForm.value);
-    if(!routeId) await this.expenseService.addExpense(expObj);
+    if (!routeId) await this.expenseService.addExpense(expObj);
     this.save.emit(expObj);
   }
 

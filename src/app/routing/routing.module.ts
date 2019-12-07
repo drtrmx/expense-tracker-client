@@ -30,11 +30,11 @@ const routes: Routes = [
     canActivate: [AuthenticateGuard],
   },
   {
-    path: 'products/:id/edit',
+    path: 'expenses/:id/edit',
     component: ExpenseEditorComponent,
     canActivate: [AuthenticateGuard],
     data: {
-      roles: ['ROLE_ADMIN']
+      roles: ['ROLE_OWNER']
     }
   },
   {

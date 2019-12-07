@@ -5,12 +5,7 @@
             Title is required!
         </mat-error>
     </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Place" formControlName="place" required>
-        <mat-error *ngIf="place?.invalid && (place?.dirty || place?.touched) && place?.errors.required">
-          Category is required!
-        </mat-error>
-      </mat-form-field>
+    
     <mat-form-field>
         <input matInput placeholder="Category" formControlName="category" required>
         <mat-error *ngIf="category?.invalid && (category?.dirty || category?.touched) && category?.errors.required">
@@ -35,6 +30,6 @@
         </mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" type="submit" [disabled]="expenseForm?.invalid">Save</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="expenseForm?.valid">Save</button>
 
 </form>
