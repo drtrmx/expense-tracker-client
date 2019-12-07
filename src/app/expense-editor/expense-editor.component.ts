@@ -1,7 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenseService } from '../expense.service';
+import { CategoryService } from '../category.service';
+import { PlaceService } from '../place.service';
 import { Expense } from '../expense';
+import { Category } from '../category';
+import { Place } from '../place';
 import { Location } from '@angular/common';
 import { AuthenticateService } from '../authenticate.service';
 
@@ -16,6 +20,7 @@ export class ExpenseEditorComponent implements OnInit {
   expense: Expense = new Expense();
   id: number = null;
   title = 'New expense';
+  categories: Category[];
 
   //@Input() expense: Expense;
   @Input() mode: 'edit';
@@ -23,6 +28,8 @@ export class ExpenseEditorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private expenseService: ExpenseService,
+    private categoryService: CategoryService,
+    private placeService: PlaceService,
     private location: Location,
     private router: Router,
     private authService: AuthenticateService
@@ -36,6 +43,8 @@ export class ExpenseEditorComponent implements OnInit {
       this.expense = await this.expenseService.getExpense(this.id);
       this.title = 'Edit expense';
     }
+    this.categories = this.categoryService.getCategories()
+
   }
 
   async onFormSubmit(expense: Expense) {
