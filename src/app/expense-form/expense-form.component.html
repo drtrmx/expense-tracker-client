@@ -5,26 +5,28 @@
       Title is required!
     </mat-error>
   </mat-form-field>
-
-  <mat-select [formControl]="category" required>
-    <mat-option>--</mat-option>
-    <mat-option *ngFor="let cat of categories" [value]="cat">
-      {{cat.name}}
-    </mat-option>
-  </mat-select>
-  <mat-error *ngIf="category?.invalid && (category?.dirty || category?.touched) && category?.errors.required">
-    Category is required!
-  </mat-error>
-
-  <mat-select [formControl]="place" required>
-    <mat-option>--</mat-option>
-    <mat-option *ngFor="let place of places" [value]="place">
-      {{place.name}}
-    </mat-option>
-  </mat-select>
-  <mat-error *ngIf="place?.invalid && (place?.dirty || place?.touched) && place?.errors.required">
-    Place is required!
-  </mat-error>
+  <mat-form-field>
+    <mat-select *ngIf="expense" [formControl]="category" required [(ngModel)]="expense.category">
+      <!--<mat-option>{{currCat.name}}</mat-option>-->
+      <mat-option *ngFor="let cat of categories" [value]="cat">
+        {{cat.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="category?.invalid && (category?.dirty || category?.touched) && category?.errors.required">
+      Category is required!
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select *ngIf="expense" [formControl]="place" required [(ngModel)]="expense.place">
+      <!--<mat-option>{{currPlace.name}}</mat-option>-->
+      <mat-option *ngFor="let place of places" [value]="place">
+        {{place.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="place?.invalid && (place?.dirty || place?.touched) && place?.errors.required">
+      Place is required!
+    </mat-error>
+  </mat-form-field>
 
   <mat-form-field>
     <input matInput placeholder="Value" [formControl]="value" required>

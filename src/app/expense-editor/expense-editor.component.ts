@@ -40,14 +40,13 @@ export class ExpenseEditorComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = await this.route.snapshot.paramMap.get('id');
     if (id) {
       this.id = +id;
       this.expense = await this.expenseService.getExpense(this.id);
       this.title = 'Edit expense';
       this.categories = await this.categoryService.getCategories();
       this.places = await this.placeService.getPlaces();
-      console.log(this.categories);
     }
 
 

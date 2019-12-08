@@ -8,6 +8,7 @@ import { ExpenseEditorComponent } from '../expense-editor/expense-editor.compone
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { IndexPageComponent } from '../index-page/index-page.component';
 import { AuthenticateGuard } from '../authenticate.guard';
+import { CategoryFormComponent } from '../category-form/category-form.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
     data: {
       roles: ['ROLE_OWNER']
     }
+  },
+  {
+    path: 'categories/add',
+    component: CategoryFormComponent,
+    canActivate: [AuthenticateGuard],
   },
   {
     path: 'login',

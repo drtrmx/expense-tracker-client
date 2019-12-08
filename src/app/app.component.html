@@ -6,6 +6,7 @@
   <div *ngIf="authService.isLoggedIn">
     <button mat-button routerLink="/expenses">My expenses</button>
     <button mat-button routerLink="/expenses/add">New expenses</button>
+    <button mat-button routerLink="/categories/add">Add category</button>
     <span>Hello, {{ authService.user.username }}!</span>
     <button mat-button (click)="logout()">Logout</button>
   </div>

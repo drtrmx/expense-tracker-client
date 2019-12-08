@@ -16,5 +16,5 @@
 </dl>
 
 <p>
-<a mat-flat-button color="primary" [routerLink]="['/expenses', expense.id, 'edit']">Edit</a>
+<a *ngIf="expense" mat-flat-button color="primary" [routerLink]="['/expenses', expense.id, 'edit']">Edit</a>
 </p>

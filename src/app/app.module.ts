@@ -27,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValueFilterComponent } from './value-filter/value-filter.component';
 import { FormsModule } from '@angular/forms';
+import { CategoryFormComponent } from './category-form/category-form.component';
+import { PlaceFormComponent } from './place-form/place-form.component';
 
 
 
@@ -41,6 +43,8 @@ import { FormsModule } from '@angular/forms';
     StatusFilterComponent,
     IndexPageComponent,
     ValueFilterComponent,
+    CategoryFormComponent,
+    PlaceFormComponent,
   ],
   imports: [
     BrowserModule,

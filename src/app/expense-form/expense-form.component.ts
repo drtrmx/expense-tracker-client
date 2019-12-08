@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Expense } from '../expense';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { ExpenseService } from '../expense.service';
-import {Category} from '../category';
-import {Place} from '../place';
-import {CategoryService} from '../category.service';
-import {PlaceService} from '../place.service';
-import {AuthenticateService} from '../authenticate.service';
+import { Category } from '../category';
+import { Place } from '../place';
+import { CategoryService } from '../category.service';
+import { PlaceService } from '../place.service';
+import { AuthenticateService } from '../authenticate.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,9 +35,16 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
 
   categories: Category[];
   places: Place[];
+  currPlace: Place;
+  selectedPlace: Place;
+  currCat: Category;
+  selectedCat: Category;
+
+  inAddNew: boolean;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private expenseService: ExpenseService,
     private userService: UserService,
@@ -45,6 +53,9 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     private authService: AuthenticateService,
   ) {
     this.id = +this.route.snapshot.paramMap.get('id');
+    this.inAddNew = this.router.url === '/add';
+    console.log(this.router.url);
+
   }
 
   ngOnInit() {
@@ -52,12 +63,22 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     this.loadPlaces();
   }
 
+
+
   private async loadCategories() {
     this.categories = await this.categoryService.getCategories();
+    /*if (this.expense != null) {
+      this.currCat = await this.categoryService.getCategory(this.expense.category.id);
+      this.selectedCat = await this.categories.find(cat => cat.id == this.currCat.id);
+    }*/
   }
 
   private async loadPlaces() {
     this.places = await this.placeService.getPlaces();
+    /*if (this.expense != null) {
+      this.currPlace = await this.placeService.getPlace(this.expense.place.id);
+      this.selectedPlace = await this.places.find(place => place.id == this.currPlace.id);
+    }*/
   }
 
   ngOnChanges() {
