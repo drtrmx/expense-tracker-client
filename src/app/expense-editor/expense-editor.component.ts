@@ -53,7 +53,7 @@ export class ExpenseEditorComponent implements OnInit {
   }
 
   async onFormSubmit(expense: Expense) {
-    if (this.id) {
+    if (this.id > 0) {
       await this.expenseService.modifyExpense(this.id, expense)
       this.location.back();
     } else {

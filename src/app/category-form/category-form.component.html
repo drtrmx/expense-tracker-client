@@ -1,13 +1,13 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <mat-form-field>
-        <input matInput placeholder="Name" [formControlName]="name" required>
+        <input matInput placeholder="Name" formControlName="name" required>
         <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched) && name?.errors.required">
             Name is required!
         </mat-error>
     </mat-form-field>
     <mat-form-field>
         <label formArrayName="places" *ngFor="let place of form.controls.places?.controls; let i = index">
-            <input type="checkbox" [formControlName]="i" value="{{places[i].id}}">
+            <mat-checkbox matInput type="checkbox" [formControlName]="i" [value]="places[i].id"></mat-checkbox>
             {{places[i].name}}
         </label>
     </mat-form-field>

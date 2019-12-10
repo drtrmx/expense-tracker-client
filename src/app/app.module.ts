@@ -13,7 +13,8 @@ import {
   MatButtonToggleModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
@@ -63,6 +64,7 @@ import { PlaceFormComponent } from './place-form/place-form.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

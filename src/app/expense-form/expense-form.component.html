@@ -1,12 +1,12 @@
-<form (ngSubmit)="onSubmit()">
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input matInput placeholder="Title" [formControl]="title" required>
+    <input matInput placeholder="Title" formControlName="title" required>
     <mat-error *ngIf="title?.invalid && (title?.dirty || title?.touched) && title?.errors.required">
       Title is required!
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <mat-select *ngIf="expense" [formControl]="category" required [(ngModel)]="expense.category">
+    <mat-select   formControlName="category" required >
       <!--<mat-option>{{currCat.name}}</mat-option>-->
       <mat-option *ngFor="let cat of categories" [value]="cat">
         {{cat.name}}
@@ -17,7 +17,7 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <mat-select *ngIf="expense" [formControl]="place" required [(ngModel)]="expense.place">
+    <mat-select formControlName="place" required>
       <!--<mat-option>{{currPlace.name}}</mat-option>-->
       <mat-option *ngFor="let place of places" [value]="place">
         {{place.name}}
@@ -29,7 +29,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Value" [formControl]="value" required>
+    <input matInput placeholder="Value" formControlName="value" required>
     <mat-error *ngIf="value?.invalid && (value?.dirty || value?.touched) && value?.errors.required">
       Value is required!
     </mat-error>
@@ -37,7 +37,7 @@
 
 
   <mat-form-field>
-    <textarea matInput placeholder="Description" [formControl]="description"></textarea>
+    <textarea matInput placeholder="Description" formControlName="description"></textarea>
   </mat-form-field>
 
   <button mat-flat-button color="primary" type="submit">Save</button>

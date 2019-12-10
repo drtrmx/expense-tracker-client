@@ -68,7 +68,9 @@ export class CategoryFormComponent implements OnInit {
 
   private async loadPlaces() {
     this.places = await this.placeService.getPlaces();
+
   }
+
 
   async onSubmit() {
     const result = new Category();
@@ -76,7 +78,7 @@ export class CategoryFormComponent implements OnInit {
     result.name = this.name.value;
   
     if (!this.id) {
-      await this.categoryService.addCategory(result);
+      //await this.categoryService.addCategory(result);
     }
     this.save.emit(result);
   }
